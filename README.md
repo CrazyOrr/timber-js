@@ -57,7 +57,7 @@ Timber.plant(new CustomTree());
 
 ## Installation
 ```
-$ npm install timber
+$ npm install @crazyorr/timber
 ```
 
 ## Author
