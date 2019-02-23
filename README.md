@@ -11,7 +11,10 @@ Two easy steps:
 ## Code Demo
 ### Basic Usage
 ```javascript
-// Plant a tree
+// import timber
+const {Timber, DebugTree} = require('@crazyorr/timber');
+
+// Plant a default debug tree which directs logs to console
 Timber.plant(new DebugTree());
 
 // Log without tag
@@ -28,6 +31,10 @@ Timber.tag('tag-4').error('error');
 ```
 ### Customize Tree
 ```javascript
+// import timber
+const {Timber, Tree, Level} = require('@crazyorr/timber');
+
+// Customize a tree's behavior by extending the Tree class, send logs to anywhere you want
 class CustomTree extends Tree {
 
   isLoggable(level, tag) {
@@ -51,7 +58,10 @@ class CustomTree extends Tree {
   }
 }
 
+// Plant a customized tree
 Timber.plant(new CustomTree());
+// You can plant as many trees as you want
+// Timber.plant(new CustomTree()); ...
 ```
 
 
