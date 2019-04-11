@@ -3,6 +3,7 @@
   "version": "0.0.3",
   "description": "JavaScript port of Android's timber library.",
   "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "files": [
     "lib/**/*.js",
     "lib/**/*.d.ts"
