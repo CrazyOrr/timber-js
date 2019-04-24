@@ -1,5 +1,9 @@
 # timber changelog
 
+## 0.0.5 (2019-04-24)
+
+- Minify dist js
+
 ## 0.0.4 (2019-04-11)
 
 - Set the 'types' property in package.json
