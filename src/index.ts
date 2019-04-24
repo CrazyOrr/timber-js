@@ -112,6 +112,7 @@ class DispatcherTree extends Tree {
     }
 }
 
+// noinspection JSUnusedGlobalSymbols
 /**
  * A {@link Tree Tree} for debug builds. All logs go to console.
  */
@@ -141,6 +142,7 @@ export class DebugTree extends Tree {
     }
 }
 
+// noinspection JSUnusedGlobalSymbols
 export class Timber {
     private static forest: Tree[] = [];
     /**
@@ -196,6 +198,7 @@ export class Timber {
         });
     }
 
+    // noinspection JSUnusedGlobalSymbols
     /**
      * Remove planted {@link Tree trees}.
      * @param trees Logging {@link Tree tree} implementations.
@@ -211,6 +214,7 @@ export class Timber {
         });
     }
 
+    // noinspection JSUnusedGlobalSymbols
     /**
      * Remove all planted {@link Tree trees}.
      */
