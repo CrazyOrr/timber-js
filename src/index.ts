@@ -77,7 +77,7 @@ export abstract class Tree {
 }
 
 /**
- * A {@link Tree Tree} for dispatching logs, as {@link treeOfSouls}.
+ * A {@link Tree} for dispatching logs, as {@link treeOfSouls}.
  */
 class DispatcherTree extends Tree {
 
