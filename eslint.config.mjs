@@ -14,5 +14,5 @@ export default defineConfig(
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   eslint.configs.recommended,
   tsEslint.configs.recommended,
-  eslintConfigPrettier
+  eslintConfigPrettier,
 );
