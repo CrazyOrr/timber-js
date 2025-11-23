@@ -5,12 +5,15 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist/**/*.js",
-    "dist/**/*.d.ts"
+    "dist/"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "gulp compile"
+    "build": "rimraf dist && tsc",
+    "lint": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "check-spelling": "cspell ."
   },
   "repository": {
     "type": "git",
@@ -22,8 +25,7 @@
   "homepage": "https://github.com/CrazyOrr/timber-js",
   "keywords": [
     "log",
-    "logger",
-    "timber"
+    "logger"
   ],
   "author": {
     "name": "Lei Wang",
@@ -32,11 +34,15 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-if": "^2.0.2",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-typescript": "^5.0.1",
-    "gulp-uglify": "^3.0.2",
-    "typescript": "^3.7.2"
+    "@eslint/compat": "^2.0.0",
+    "@eslint/js": "^9.39.1",
+    "cspell": "^9.3.2",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.5.0",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.1.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.47.0"
   }
 }

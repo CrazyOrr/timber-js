@@ -1,20 +1,14 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
-    //    "noImplicitAny": true,
-    //    "removeComments": true,
     "module": "commonjs",
     "target": "es5",
     "declaration": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "declarationMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "removeComments": true,
+    "strict": true
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
