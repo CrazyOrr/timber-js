@@ -43,7 +43,7 @@ const { Timber, Tree, Level } = require("@crazyorr/timber");
 class CustomTree extends Tree {
   isLoggable(level, tag) {
     // Log only if level is Warn or Error
-    return level >= Level.Warn;
+    return level === Level.Warn || level === Level.Error;
   }
 
   log(level, tag, message, ...optionalParams) {
