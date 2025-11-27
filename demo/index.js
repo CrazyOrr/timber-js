@@ -1,4 +1,4 @@
-const { Timber, DebugTree } = require("../dist");
+const { Timber, DebugTree } = require("../lib");
 
 Timber.plant(new DebugTree());
 

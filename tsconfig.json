@@ -5,7 +5,7 @@
     "declaration": true,
     "sourceMap": false,
     "declarationMap": true,
-    "outDir": "dist",
+    "outDir": "lib",
     "removeComments": true,
     "strict": true
   },

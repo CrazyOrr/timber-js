@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { afterEach, beforeEach, describe, test } from "node:test";
 
-import { Timber, DebugTree, Tree, Level } from "../dist/index.js";
+import { Timber, DebugTree, Tree, Level } from "../lib/index.js";
 
 describe("Timber", () => {
   afterEach(() => {
