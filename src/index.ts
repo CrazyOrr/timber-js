@@ -1,45 +1,100 @@
 /**
+ * Timber is a logging facade for JavaScript, inspired by Timber for Android.
+ *
+ * @remarks
+ * Install instances of {@link Tree} via {@link Timber.plant | Timber.plant()} to handle the logging calls issued by {@link Timber.debug | Timber.debug()}, {@link Timber.error | Timber.error()}, etc.
+ *
+ * @packageDocumentation
+ */
+
+/**
  * Log levels
+ *
+ * @public
  */
 export enum Level {
+  /**
+   * Debug level log.
+   */
   Debug = "debug",
+
+  /**
+   * Info level log.
+   */
   Info = "info",
+
+  /**
+   * Warn level log.
+   */
   Warn = "warn",
+
+  /**
+   * Error level log.
+   */
   Error = "error",
 }
 
 /**
- * A facade for handling logging calls. Install instances via {@link plant Timber.plant()}.
+ * A facade for handling logging calls.
+ *
+ * @public
  */
 export abstract class Tree {
   private tag?: string;
 
+  /**
+   * Log a debug message.
+   *
+   * @param message - The message to log.
+   * @param optionalParams - Additional parameters to log.
+   */
   debug(message?: unknown, ...optionalParams: unknown[]): void {
     this.prepareLog(Level.Debug, message, ...optionalParams);
   }
 
+  /**
+   * Log an info message.
+   *
+   * @param message - The message to log.
+   * @param optionalParams - Additional parameters to log.
+   */
   info(message?: unknown, ...optionalParams: unknown[]): void {
     this.prepareLog(Level.Info, message, ...optionalParams);
   }
 
+  /**
+   * Log a warning message.
+   *
+   * @param message - The message to log.
+   * @param optionalParams - Additional parameters to log.
+   */
   warn(message?: unknown, ...optionalParams: unknown[]): void {
     this.prepareLog(Level.Warn, message, ...optionalParams);
   }
 
+  /**
+   * Log an error message.
+   *
+   * @param message - The message to log.
+   * @param optionalParams - Additional parameters to log.
+   */
   error(message?: unknown, ...optionalParams: unknown[]): void {
     this.prepareLog(Level.Error, message, ...optionalParams);
   }
 
   /**
    * Set a one-time tag for use on the next logging call.
-   * @param tag The tag for logging.
+   *
+   * @param tag - The tag for logging, providing additional context.
    */
   public setTag(tag: string): void {
     this.tag = tag;
   }
 
   /**
-   * Retrieve the tag then clear it for one-time use
+   * Get the tag for the next logging call.
+   *
+   * @returns The tag for the next logging call, or undefined if no tag is set.
    */
   protected getTag(): string | undefined {
     const tag = this.tag;
@@ -47,9 +102,13 @@ export abstract class Tree {
   }
 
   /**
-   * Return whether a message at {@code level} or {@code tag} should be logged.
-   * @param level
-   * @param tag
+   * Return whether a message with given `level` and `tag` should be logged.
+   *
+   * @param level - Log's {@link Level | level}.
+   * @param tag - Log's tag.
+   * @returns Whether the message should be logged.
+   *
+   * @virtual
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected isLoggable(level: Level, tag?: string) {
@@ -57,11 +116,12 @@ export abstract class Tree {
   }
 
   /**
-   * Write a log message to its destination. Called for all level-specific methods by default.
-   * @param level Log's {@link Level level}.
-   * @param tag Log's tag.
-   * @param message Log's message.
-   * @param optionalParams Log's optionalParams.
+   * Log a message with the given `level`, `tag`, `message`, and `optional parameters`.
+   *
+   * @param level - Log's {@link Level | level}.
+   * @param tag - Log's tag.
+   * @param message - Log's message.
+   * @param optionalParams - Log's optional parameters.
    */
   protected abstract log(
     level: Level,
@@ -86,55 +146,36 @@ export abstract class Tree {
 }
 
 /**
- * A {@link Tree} for dispatching logs, as {@link treeOfSouls}.
+ * A {@link Tree} for dispatching logs, as {@link Timber.treeOfSouls}.
  */
 class DispatcherTree extends Tree {
   constructor(private forest: Tree[]) {
     super();
   }
 
-  debug(message?: unknown, ...optionalParams: unknown[]): void {
-    this.dispatchLog(Level.Debug, message, ...optionalParams);
-  }
-
-  info(message?: unknown, ...optionalParams: unknown[]): void {
-    this.dispatchLog(Level.Info, message, ...optionalParams);
-  }
-
-  warn(message?: unknown, ...optionalParams: unknown[]): void {
-    this.dispatchLog(Level.Warn, message, ...optionalParams);
-  }
-
-  error(message?: unknown, ...optionalParams: unknown[]): void {
-    this.dispatchLog(Level.Error, message, ...optionalParams);
-  }
-
   protected log(
-    /* eslint-disable @typescript-eslint/no-unused-vars */
     level: Level,
     tag?: string,
     message?: unknown,
     ...optionalParams: unknown[]
-    /* eslint-enable  @typescript-eslint/no-unused-vars */
-  ): void {
-    throw new Error("Missing override for log method.");
-  }
-
-  private dispatchLog(
-    method: Level,
-    message?: unknown,
-    ...optionalParams: unknown[]
   ): void {
     this.forest.forEach((tree) => {
-      tree[method](message, ...optionalParams);
+      tree[level](message, ...optionalParams);
     });
   }
 }
 
 /**
- * A {@link Tree Tree} for debug builds. All logs go to console.
+ * A {@link Tree} for debugging. All logs go to `console`.
+ *
+ * @public
  */
 export class DebugTree extends Tree {
+  /**
+   * {@inheritDoc Tree.log}
+   *
+   * @override
+   */
   protected log(
     level: Level,
     tag?: string,
@@ -165,10 +206,15 @@ export class DebugTree extends Tree {
   }
 }
 
+/**
+ * A static class for logging via planted {@link Tree | trees}.
+ *
+ * @public
+ */
 export class Timber {
   private static forest: Tree[] = [];
   /**
-   * A {@link Tree} that delegates to all planted trees in the {@link forest}.
+   * A {@link Tree} that delegates to all planted trees in the {@link Timber.forest}.
    */
   private static treeOfSouls = new DispatcherTree(Timber.forest);
 
@@ -176,25 +222,50 @@ export class Timber {
     throw new Error("No instances.");
   }
 
+  /**
+   * Log a debug message.
+   *
+   * @param message - The message to log.
+   * @param optionalParams - Additional parameters to log.
+   */
   static debug(message?: unknown, ...optionalParams: unknown[]): void {
     Timber.log(Level.Debug, message, ...optionalParams);
   }
 
+  /**
+   * Log an info message.
+   *
+   * @param message - The message to log.
+   * @param optionalParams - Additional parameters to log.
+   */
   static info(message?: unknown, ...optionalParams: unknown[]): void {
     Timber.log(Level.Info, message, ...optionalParams);
   }
 
+  /**
+   * Log a warning message.
+   *
+   * @param message - The message to log.
+   * @param optionalParams - Additional parameters to log.
+   */
   static warn(message?: unknown, ...optionalParams: unknown[]): void {
     Timber.log(Level.Warn, message, ...optionalParams);
   }
 
+  /**
+   * Log an error message.
+   *
+   * @param message - The message to log.
+   * @param optionalParams - Additional parameters to log.
+   */
   static error(message?: unknown, ...optionalParams: unknown[]): void {
     Timber.log(Level.Error, message, ...optionalParams);
   }
 
   /**
    * Set a one-time tag for use on the next logging call.
-   * @param tag The tag for logging.
+   *
+   * @param tag - The tag for logging.
    */
   static tag(tag: string): Tree {
     Timber.forest.forEach((tree) => {
@@ -204,8 +275,9 @@ export class Timber {
   }
 
   /**
-   * Adds new logging {@link Tree trees}.
-   * @param trees Logging {@link Tree tree} implementations.
+   * Add new logging {@link Tree | trees}.
+   *
+   * @param trees - Logging {@link Tree | tree} implementations.
    */
   static plant(...trees: Tree[]): void {
     trees.forEach((tree) => {
@@ -220,8 +292,9 @@ export class Timber {
   }
 
   /**
-   * Remove planted {@link Tree trees}.
-   * @param trees Logging {@link Tree tree} implementations.
+   * Remove planted {@link Tree | trees}.
+   *
+   * @param trees - Logging {@link Tree | tree} implementations.
    */
   static uproot(...trees: Tree[]): void {
     trees.forEach((tree) => {
@@ -235,14 +308,16 @@ export class Timber {
   }
 
   /**
-   * Remove all planted {@link Tree trees}.
+   * Remove all planted {@link Tree | trees}.
    */
   static uprootAll(): void {
     Timber.forest.splice(0, Timber.treeCount());
   }
 
   /**
-   * Returns the number of planted {@link Tree trees}.
+   * Return the number of planted {@link Tree | trees}.
+   *
+   * @returns The number of planted {@link Tree | trees}.
    */
   static treeCount(): number {
     return Timber.forest.length;
