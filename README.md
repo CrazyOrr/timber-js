@@ -1,13 +1,19 @@
 JavaScript port of Android's [timber](https://github.com/JakeWharton/timber) library.
 
-Behavior is added through Tree instances. You can install an instance by calling Timber.plant. Installation of Trees should be done as early as possible.
+Behavior is added through `Tree` instances. You can install an instance by calling `Timber.plant()`. Installation of `Tree`s should be done as early as possible.
+
+## Installation
+
+```bash
+$ npm install @crazyorr/timber
+```
 
 ## Usage
 
 Two easy steps:
 
-1. Install any Tree instances you want.
-2. Call Timber's static methods everywhere.
+1. Install any `Tree` instances you want.
+2. Call `Timber`'s static methods everywhere.
 
 ## Code Demo
 
@@ -66,12 +72,6 @@ class CustomTree extends Tree {
 Timber.plant(new CustomTree());
 // You can plant as many trees as you want
 // Timber.plant(new CustomTree()); ...
-```
-
-## Installation
-
-```
-$ npm install @crazyorr/timber
 ```
 
 ## Author
