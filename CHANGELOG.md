@@ -1,5 +1,11 @@
 # timber changelog
 
+## 0.2.0 (2025-11-28)
+
+- Change `Level` to string enum
+- Change output directory from `dist` to `lib`
+- Complete API documentation using [TSDoc](https://github.com/microsoft/tsdoc) format
+
 ## 0.1.0 (2019-08-29)
 
 - Update dependencies, fix security vulnerabilities
