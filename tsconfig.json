@@ -6,7 +6,7 @@
     "sourceMap": false,
     "declarationMap": true,
     "outDir": "lib",
-    "removeComments": true,
+    "removeComments": false,
     "strict": true
   },
   "include": ["src/**/*"],

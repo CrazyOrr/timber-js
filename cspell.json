@@ -9,5 +9,6 @@
     }
   ],
   "dictionaries": ["project-words"],
-  "ignorePaths": ["node_modules", "/project-words.txt"]
+  "useGitignore": true,
+  "ignorePaths": ["node_modules/", "/project-words.txt", "etc/"]
 }
